@@ -1,0 +1,58 @@
+﻿@page
+@model MangaWebApp.Pages.SearchModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<body>
+    <form asp-page="./Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Rechercher par:
+                <br />
+                genre: <input type="text" name="Genre" value="@Model.SearchParams.Genre" />
+                prix: <input type="number" name="Prix" value="@Model.SearchParams.Price" />
+                annee: <input type="number" name="Year" value="@Model.SearchParams.Year" />
+                page: <input type="number" name="pageIndex" value="@Model.SearchParams.PageIndex" />
+                <input type="submit" value="Search" class="btn btn-default" /> |
+            </p>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5">Liste des mangas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width:350px"><b>Titre</b></td>
+                <td><b>Année</b></td>
+                <td><b>Prix (€)</b></td>
+                <td style="width:300px"><b>Genre</b></td>
+                <td><b>Actions</b></td>
+            </tr>
+
+            @foreach (var manga in Model.Mangas)
+            {
+                <tr>
+                    <td>@manga.Title</td>
+                    <td>@manga.Year</td>
+                    <td>@manga.Price</td>
+                    <td>@manga.Genre</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+</body>
+</html>

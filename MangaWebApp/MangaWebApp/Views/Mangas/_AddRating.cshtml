@@ -1,0 +1,32 @@
+﻿@model MangaWebApp.Models.Rating
+
+<div class="modal fade" id="addRating" tabindex="-1" role="dialog" aria-labelledby="addRatingLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addRatingLabel">Ajouter une note</h4>
+            </div>
+
+			@using (Html.BeginForm("AddRating", "Mangas", FormMethod.Post))
+			{
+			<div class="modal-body">
+            
+				@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+				
+				@Html.EditorFor(model => model.UserId, new { @Value = @Model.UserId })
+				@Html.EditorFor(model => model.MangaId, new { @Value = @Model.MangaId })
+
+				<div class="form-group">  
+                    @Html.LabelFor(model => model.Value)
+					@Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } }) 
+                </div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-info" id="addRatingConfirm">Ajouter</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Annuler</button>
+			</div>
+			}
+        </div>
+    </div>
+</div>

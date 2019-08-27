@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "MangaDB";
+}
+
+<div class="container">  
+    <div class="row">  
+		<div class="col-md-12 text-center">
+			<h2><strong>Bienvenue sur MangaDB !</strong></h2><br /><br />
+    
+			@if (@User.Identity.Name != null) {	  
+				<p>Ravis de vous revoir, @User.Identity.Name !</p>
+			} 
+			else
+			{
+				<p>Veuillez vous connecter ou vous inscrire.</p>
+			}
+		</div>
+
+		<div class="col-md-12 text-center" style="margin-top: 20px">
+			@if (@User.Identity.Name != null) {
+				<a asp-action="index" asp-controller="profile"><button class="btn btn-primary">Profil</button></a>
+
+				<br /><br />
+				<form method="post" asp-action="logout" asp-controller="login">
+					<button type="submit" class="btn btn-primary">Déconnexion</button>
+				</form>
+			}
+			else
+			{
+				<a asp-action="index" asp-controller="login"><button class="btn btn-primary">Connexion</button></a>
+				<a asp-action="index" asp-controller="signup"><button class="btn btn-primary">Inscription</button></a>
+			}
+		</div>
+    </div>  
+</div>  

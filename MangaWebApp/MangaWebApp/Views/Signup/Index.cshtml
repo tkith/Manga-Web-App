@@ -1,0 +1,36 @@
+﻿@model MangaWebApp.Models.User
+
+<div class="container">  
+    <div class="row">          
+        <div class="col-md-4" style="margin: auto">
+		
+			<h2 class="text-center"><strong>Inscription</strong></h2><br />
+			
+			@using (Html.BeginForm("Index", "Signup", FormMethod.Post))
+			{
+				@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+				
+				<div class="form-group">  
+					@Html.LabelFor(model => model.Name) 
+					@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="form-group">  
+					@Html.LabelFor(model => model.Email)  
+					@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="form-group">  
+					@Html.LabelFor(model => model.Password) 
+					@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="form-group">  
+					<label>Confirmation mot de passe</label>  
+					@Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+				</div>  
+				<div class="form-check text-center">  
+					<button class="btn btn-info" type="reset">Effacer</button>  
+					<button type="submit" class="btn btn-primary">Valider</button>  
+				</div>
+			}
+		</div>
+    </div>  
+</div>  

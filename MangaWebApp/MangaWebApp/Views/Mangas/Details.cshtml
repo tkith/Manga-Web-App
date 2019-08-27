@@ -1,0 +1,68 @@
+﻿<style>
+    /* Tables */
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<div style="text-align: center">
+    <a href="@Url.Action("Index", "Mangas")">
+        <button class="btn btn-primary">Retour à la liste</button>
+    </a>
+</div>
+
+<div style="margin-top: 30px">
+    <h1><b>@Model.Manga.Title</b></h1>
+    <br />
+    <p><b>Synopsis :</b></p>
+    <p>@Model.Manga.Description</p>
+    <p><b>Année :</b> @Model.Manga.Year</p>
+    <p><b>Genre :</b> @Model.Manga.Genre</p>
+    <p><b>Prix :</b> @Model.Manga.Price €</p>
+</div>
+
+@if (@Model.Mark != null)
+{
+    <div>
+		<b>Votre note : </b>@Model.Mark.Value/5
+	</div>
+}
+else
+{
+	<button id="btn-addRating" class="btn btn-primary" data-toggle="modal" data-target="#addRating">Ajouter une note</button>
+	<br/>
+}
+<br/>
+<button id="btn-addComment" class="btn btn-primary" data-toggle="modal" data-target="#addComment">Ajouter un commentaire</button>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="5">Commentaires</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var comment in Model.Comments) {
+			<tr>
+				<td style="width:20%">@comment.User.Name</td>
+				<td>@comment.Text</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@await Html.PartialAsync("_AddComment", new Comment() { MangaId = @Model.Manga.Id, UserId = @Model.CurrentUser.Id })
+@await Html.PartialAsync("_AddRating", new Rating() { MangaId = @Model.Manga.Id, UserId = @Model.CurrentUser.Id })

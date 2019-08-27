@@ -1,0 +1,91 @@
+﻿<style>
+	/* Tables */
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+		margin-top: 25px;
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
+
+<a href="@Url.Action("Create", "Mangas")"><button class="btn btn-primary">Ajouter</button></a>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="6">Liste des mangas</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="width:30%; text-align:center"><b>Titre</b></td>
+			<td style="width:5%; text-align:center"><b>Année</b></td>
+			<td style="width:7%; text-align:center"><b>Prix (€)</b></td>
+			<td style="width:15%; text-align:center"><b>Genre</b></td>
+			<td style="width:5%; text-align:center"><b>Note</b></td>
+			<td style="width:20%; text-align:center"><b>Actions</b></td>
+		</tr>
+
+		@foreach (var manga in @Model.Mangas) {
+			<tr>
+				<td>@manga.Title</td>
+				<td style="text-align:center">@manga.Year</td>
+				<td style="text-align:center">@manga.Price</td>
+				<td style="text-align:center">@manga.Genre</td>
+				<td style="text-align:center">@manga.AverageRating/5</td>
+				<td>
+					<a href="@Url.Action("Details", "Mangas", new { id = @manga.Id })"><button class="btn btn-primary">Voir</button></a>
+                    <a href="@Url.Action("Modify", "Mangas", new { id = @manga.Id })">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
+					<button id="deleteManga_@manga.Id" class="btn btn-primary btn-delete" data-toggle="modal" data-target="#deleteConfirmModal">Supprimer</button>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="deleteLabel">Supprimer un manga</h4>
+            </div>
+            <div class="modal-body">
+                <p>Voulez-vous supprimer ce manga ?</p>
+            </div>
+            <div class="modal-footer">
+				@using (Html.BeginForm("Delete", "Mangas", FormMethod.Post))
+				{ 
+					<input type="hidden" name="id" id="formMangaId" required>
+					<button type="submit" class="btn btn-danger" id="deleteConfirm">Supprimer</button>
+				}
+                <button type="button" class="btn btn-success" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+<script>
+    $(function() {
+        $(".btn-delete").on('click', function() {
+			var btnId = $( this ).attr('id');
+			var mangaId = btnId.split('_');
+
+			$("#formMangaId").val(mangaId[1]);
+		});
+    });
+</script>
+}

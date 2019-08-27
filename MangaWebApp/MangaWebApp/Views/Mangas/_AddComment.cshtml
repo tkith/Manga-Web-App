@@ -1,0 +1,33 @@
+﻿@model MangaWebApp.Models.Comment
+
+<div class="modal fade" id="addComment" tabindex="-1" role="dialog" aria-labelledby="addCommentLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addCommentLabel">Ajouter un commentaire</h4>
+            </div>
+
+			@using (Html.BeginForm("AddComment", "Mangas", FormMethod.Post))
+			{
+			<div class="modal-body">
+            
+				@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+				
+				@Html.EditorFor(model => model.UserId, new { @Value = @Model.UserId })
+				@Html.EditorFor(model => model.MangaId, new { @Value = @Model.MangaId })
+
+				<div class="form-group">  
+                    <label for="Text">Commentaire</label>
+					@Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } }) 
+                </div>
+			</div>
+
+			<div class="modal-footer">
+				 
+				<button type="submit" class="btn btn-info" id="addCommentConfirm">Ajouter</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Annuler</button>
+			</div>
+			}
+        </div>
+    </div>
+</div>
